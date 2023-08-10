@@ -2,8 +2,7 @@ from django.contrib import admin
 from django.db import models
 from django.utils import timezone
 from django.utils.html import format_html
-
-#from django.contrib.auth import get_user_model
+from django.contrib.auth import get_user_model
 
 # Create your models here.
 '''
@@ -16,7 +15,7 @@ from django.utils.html import format_html
 
 
 '''
-#User = get_user_model()
+User = get_user_model()
 class Advertisement(models.Model):
     title = models.CharField(verbose_name='Название', max_length=128)
     descr = models.TextField('Описание')
@@ -25,6 +24,8 @@ class Advertisement(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
     admin.display(description='дата создания')
+    user = models.ForeignKey(User, verbose_name="Пользователь", on_delete=models.CASCADE)
+    image = models.ImageField('изображение', upload_to='advertisement/')
     def created_date(self):
         if self.created_at.date() == timezone.now().date():
             created_time = self.created_at.time().strftime('%H:%M:%S')
