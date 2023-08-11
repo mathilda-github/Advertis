@@ -4,7 +4,7 @@ from .models import Advertisement
 
 
 class AdvertisementAdmin(admin.ModelAdmin):
-    list_display = ['id', 'title' , 'descr', 'price', 'auction', 'created_date', 'update_date', 'user', 'image']
+    list_display = ['id', 'title' , 'descr', 'price', 'auction', 'created_date', 'update_date', 'user', 'Image_Ref_As_small_image']
     list_filter = ['auction', 'created_at']
     actions = ['make_auction_as_false', 'make_auction_as_true']
     fieldsets = (
