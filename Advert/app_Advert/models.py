@@ -53,7 +53,12 @@ class Advertisement(models.Model):
                 return mark_safe('<img src="%s" width=50 height=50 />' % (self.image.url))
             else:
                 return mark_safe('<img src = "/static/img/null_ref.png" width=50 height=50 />')
+    class Meta:
+        db_table = 'advertisements'
 
+
+    def __str__(self):
+        return f'Advertisement: Advertisement(id={self.id}, title={self.title}, price={self.price}>'
 
     #    user = models.ForeignKey(User, verbose_name="Пользователь", on_delete=models.CASCADE)
 #    image = models.ImageField('изображение', upload_to='adverisements/')
