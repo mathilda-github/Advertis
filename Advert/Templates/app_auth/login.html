@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block title %}Разместить объявления{% endblock %}
+{% block title %}Вход{% endblock %}
 {% block body %}
   <ul class="nav nav-pills sticky-top bg-white nav-fill">
     <li class="nav-item">
@@ -13,7 +13,7 @@
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link active" aria-current="page" href="{% url 'adv-post' %}">
+      <a class="nav-link" href="{% url 'adv-post' %}">
         <span style="font-weight: bold;">Разместить объявление</span>
       </a>
     </li>
@@ -23,37 +23,54 @@
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="login.html">
+      <a class="nav-link active" aria-current="page" href="{% url 'login' %}">
         <span style="font-weight: bold;">Войти</span>
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="profile.html">
+      <a class="nav-link" href="{% url 'profile' %}">
         <span style="font-weight: bold;">Профиль</span>
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="#">
+      <a class="nav-link" href="{% url 'logout' %}">
         <span style="font-weight: bold;">Выйти</span>
       </a>
     </li>
   </ul>
+  <div class="container">
   <div class="row">
-    <div class="col" style="margin: 50px;">
+    <div class="col-8" style="margin: 50px;">
       <div class="display-2">
-        <span class="badge bg-primary">Сообщите миру об этом в этой форме</span>
+        <span class="badge bg-primary">Страница авторизации пользователя</span>
       </div>
     </div>
   </div>
-  <div class="container">
-    <form method="post" enctype="multipart/form-data">
-      {% csrf_token %}
-      <div class="row mb-3 offset-sm-5">
-        <div class="col-5">
-          {{ form.as_p }}
+  {% if error %}
+     <div class="col-sm-4 offset-4 w-25">
+        <div class="form-label bg-warning" style="margin: 10px 0px;">
+           {{ error }}
+        </div>
+     </div>
+  {% endif %}
+
+    <form method="post">
+      <div class="row mb-3">
+        <div class="col">
+          <label class="col-sm-4 col-form-label offset-4">Username</label>
+          <div class="col-sm-4 offset-4 w-25">
+            <input name="username" type="text" class="form-control form-control-lg">
+          </div>
         </div>
       </div>
-
+      <div class="row mb-3">
+        <div class="col">
+          <label class="col-sm-4 col-form-label offset-4">Password</label>
+          <div class="col-sm-4 offset-4 w-25">
+            <input name="password" type="password" class="form-control form-control-lg">
+          </div>
+        </div>
+      </div>
       <div class="row mb-3 offset-sm-5">
         <div class="col">
           <button type="submit" class="btn btn-success">Принять</button>
