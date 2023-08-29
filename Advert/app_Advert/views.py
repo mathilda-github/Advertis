@@ -11,10 +11,16 @@ from django.urls import reverse_lazy
 def index (request):
     advertisements = Advertisement.objects.all()
     context = {'advertisements': advertisements}
+    if request.user.is_authenticated:
+        context['user_profile'] = request.user.is_authenticated
     return render(request, 'app_advertisement/index.html', context)
 
 def top_sellers (request):
-    return render(request, 'app_advertisement/top-sellers.html')
+    if request.user.is_authenticated:
+        user_profile = True
+    else:
+        user_profile = False
+    return render(request, 'app_advertisement/top-sellers.html', {'user_profile': user_profile})
 
 
 @login_required(login_url=reverse_lazy('login'))
@@ -29,4 +35,6 @@ def advertisement_post(request):
     else:
         form = AdvertisementForm()
     context = {'form': form}
+    if request.user.is_authenticated:
+        context['user_profile'] = request.user.is_authenticated
     return render(request, 'app_advertisement/advertisement-post.html', context)
