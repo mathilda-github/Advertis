@@ -32,12 +32,14 @@ def logout_view(request):
     user_profile = False
     return render(request, 'app_auth/login.html', {'user_profile': user_profile})
 
-@login_required(login_url=reverse_lazy('profile'))
+@login_required(login_url=reverse_lazy('main_page'))
 def register_view(request):
     class SignUp(CreateView):
-        form_class = RegisterationForm
-#        success_url = reverse_lazy('app_advertisement/index.html')
-    return render(request, 'app_auth/register.html')
+        form_class = RegisterationForm()
+#        success_url = reverse_lazy('main_page')
+        template_name = 'app_auth/regoster.html'
+    form = RegisterationForm()
+    return render(request, 'app_auth/register.html', {'form':form})
 
 
 
