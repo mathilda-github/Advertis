@@ -32,14 +32,24 @@ def logout_view(request):
     user_profile = False
     return render(request, 'app_auth/login.html', {'user_profile': user_profile})
 
-@login_required(login_url=reverse_lazy('main_page'))
+#@login_required(login_url=reverse_lazy('main_page'))
 def register_view(request):
-    class SignUp(CreateView):
+    if request.POST:
+        form = RegisterationForm(request.POST)
+        if form.is_valid():
+            new_user = form.save()
+            return redirect(reverse('main_page'))
+    else:
+        form = RegisterationForm()
+        return render(request, 'app_auth/register.html', {'form':form})
+
+
+#            class SignUp(CreateView):
         form_class = RegisterationForm()
 #        success_url = reverse_lazy('main_page')
         template_name = 'app_auth/regoster.html'
-    form = RegisterationForm()
-    return render(request, 'app_auth/register.html', {'form':form})
+ #   form = RegisterationForm()
+    #return render(request, 'app_auth/register.html', {'form':form})
 
 
 
